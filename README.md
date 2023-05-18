@@ -104,6 +104,10 @@ console.log(
   .run(testObj))
 // { pass: true, msg: '', data: [] }
 
+/* If you just want to check a data */
+console.log(valid().isEmail().run("12345@gmail.com"))
+// { pass: true, msg: '', data: [] }
+
 /* use validatorCheck */
 validatorCheck(emailCheck) // true
 validatorCheck(nameCheck) // false
