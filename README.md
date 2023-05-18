@@ -91,7 +91,7 @@ console.log(valid("age").isInt().run(testObj))
 /* Optional field check */
 console.log(valid("phone")
   .optional() // If the field is not present, skip the check
-  .isMobilePhone()
+  .isMobilePhone("en-US")
   .run(testObj))
 // {pass: true, msg: '',data:[]}
 
