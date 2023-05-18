@@ -22,7 +22,7 @@ export class ValidatorWrapper {
   private _result: ValidatorResultItem[] = []
   private _isOptional = false
   private _chian: {fun: ValidAction, options?: any, msg?: string}[] = []
-  private _isBoll = false
+  private _isBail = false
   private _allowNull = false
 
   constructor (key?: string) {
@@ -923,9 +923,10 @@ export class ValidatorWrapper {
 
       for (const item of this._chian) {
         try {
-          if (this._isBoll) {return this.result()}
+          if (this._isBail) {return this.result()}
 
           const t = this[item.fun](item.options)
+          // only log false
           if (!t) {this._result.push({ pass:t,fun:item.fun, msg: isNil(item.msg) ? item.fun : item.msg })}
 
         } catch (error) {
@@ -937,15 +938,8 @@ export class ValidatorWrapper {
   }
 
   private result ():ValidatorResult {
-    let msg = ''
-    const pass = !this._result.some(r => {
-      if (!r.pass) {
-        msg = r.msg
-        return true
-      }
-      return false
-    })
-    return { pass, msg, data: this._result }
+    const pass = this._result.length === 0
+    return { pass, msg:pass ? '' : this._result[0].msg, data: this._result }
   }
 
   bail () {
@@ -955,7 +949,7 @@ export class ValidatorWrapper {
 
   private _bail () {
     if (!this.result().pass) {
-      this._isBoll = true
+      this._isBail = true
     }
     return true
   }

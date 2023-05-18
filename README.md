@@ -1,4 +1,5 @@
 ## Overview
+[![npm version](https://img.shields.io/npm/v/validator-chain-util.svg)](https://www.npmjs.com/package/validator-chain-util)
 validator-chain-util is a utility library for the [validator.js](https://github.com/validatorjs/validator.js) project.
 You can verify data through chain functions, or use schema to verify data.
 It supports wildcard attribute selectors, you can use wildcards to validate data inside arrays or objects.

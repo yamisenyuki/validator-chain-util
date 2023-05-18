@@ -17,7 +17,7 @@ function validatorCheck(result:ValidatorResult|ValidatorResult[]):boolean{
 
  function validatorSchemaCheck(schema:ValidatorSchema,data:any):ValidatorResult[]{
   const result:ValidatorResult[] = []
-  Object.keys(schema).forEach(async key=>{
+  Object.keys(schema).forEach(key=>{
     schema[key].setKey(key)
     result.push(schema[key].run(data))
   })
