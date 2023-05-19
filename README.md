@@ -1,5 +1,7 @@
 ## Overview
 [![npm version](https://img.shields.io/npm/v/validator-chain-util.svg)](https://www.npmjs.com/package/validator-chain-util)
+[![license](https://img.shields.io/github/license/yamisenyuki/validator-chain-util)](https://github.com/yamisenyuki/validator-chain-util/blob/master/LICENSE)
+
 validator-chain-util is a utility library for the [validator.js](https://github.com/validatorjs/validator.js) project.
 You can verify data through chain functions, or use schema to verify data.
 It supports wildcard attribute selectors, you can use wildcards to validate data inside arrays or objects.
@@ -23,6 +25,8 @@ It supports wildcard attribute selectors, you can use wildcards to validate data
     - [Optional / Allow Null / notEmpty](#optional--allow-null--notempty)
     - [Custom Validator](#custom-validator)
     - [Custom Error Message](#custom-error-message)
+- [Change Log](#change-log)
+- [Thanks](#thanks)
 
 ## Getting Started
 
@@ -277,4 +281,10 @@ valid("name")
 .run(testObj)
 ```
 
+## Change Log
+view [Change Log](./CHANGELOG.md)
+
+## Thanks
+[validator.js](https://github.com/validatorjs/validator.js)
+[lodash](https://github.com/lodash/lodash)
 

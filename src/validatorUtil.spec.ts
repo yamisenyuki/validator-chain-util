@@ -46,7 +46,7 @@ describe("validatorSchema",()=>{
   }
   test("test1",()=>{
     const schema:ValidatorSchema={
-      testStr:valid().contains({seed:"te"}),
+      testStr:valid().contains("te"),
       testNumber:valid().isInt(),
       testFloat:valid().isFloat(),
       testBoolean:valid().isBoolean(),
@@ -61,7 +61,7 @@ describe("validatorSchema",()=>{
   })
   test("test2",()=>{
     const schema:ValidatorSchema={
-      testStr:valid().contains({seed:"te"}),
+      testStr:valid().contains("te"),
       testNumber:valid().isInt(),
       testFloat:valid().isFloat(),
       testBoolean:valid().isBoolean(),

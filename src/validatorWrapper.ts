@@ -132,8 +132,8 @@ export class ValidatorWrapper {
   }
 
 
-  public contains (options: {seed: string}&validator.ContainsOptions) {
-    this._chian.push({ fun: '_contains', options })
+  public contains (seed: string,options?: validator.ContainsOptions) {
+    this._chian.push({ fun: '_contains', options: {seed, ...options} })
     return this
   }
 
@@ -492,16 +492,6 @@ export class ValidatorWrapper {
     return this
   }
 
-
-  private _isArray (_o: any) {
-    return isArray(this._rawV)
-  }
-
-  public isArray () {
-    this._chian.push({ fun: '_isArray' })
-    return this
-  }
-
   private _notNaN (_o: any) {
     return !isNaN(this._rawV)
   }
@@ -772,23 +762,24 @@ export class ValidatorWrapper {
     return this
   }
 
-  public isArrayLength(options:validator.IsLengthOptions) {
-    this._chian.push({fun:'_isArrayLength',options})
+  public isArray(options?:validator.IsLengthOptions) {
+    this._chian.push({fun:'_isArray',options})
     return this
   }
 
-  private _isArrayLength(options:validator.IsLengthOptions) {
+  private _isArray(options?:validator.IsLengthOptions) {
     let result =true
     if(!isArray(this._rawV)){
       return false
     }
+    if(!isNil(options)){
+      if(!isNil(options?.min)){
+        result = result && (this._rawV.length >= options?.min)
+      }
 
-    if(options.min){
-      result = result && this._rawV.length >= options.min
-    }
-
-    if(options.max){
-      result = result && this._rawV.length <= options.max
+      if(!isNil(options?.max)){
+        result = result && (this._rawV.length <= options?.max)
+      }
     }
     return result
   }
@@ -930,6 +921,7 @@ export class ValidatorWrapper {
           if (!t) {this._result.push({ pass:t,fun:item.fun, msg: isNil(item.msg) ? item.fun : item.msg })}
 
         } catch (error) {
+          console.error(error)
           this._result.push({ pass:false,fun:item.fun, msg: isNil(item.msg) ? item.fun : item.msg })
         }
       }

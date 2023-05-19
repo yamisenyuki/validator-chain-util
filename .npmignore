@@ -4,3 +4,4 @@ tsconfig.json
 .vscode
 jest.config.js
 test.ts
+coverage
