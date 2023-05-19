@@ -1,6 +1,6 @@
-import { get, isNil, isObject } from "lodash"
+import { get, isNil, isObject } from 'lodash'
 
-const objectProcess ={
+const objectProcess = {
   pathStr (path: string) {
     const newpath: string[] = []
     let s: string[] = []

@@ -1,9 +1,9 @@
-import validatorUtil from "./validatorWrapper";
-import {validatorCheck,validatorSchemaCheck} from "./validatorUtil";
+import validatorUtil from './validatorWrapper'
+import { validatorCheck, validatorSchemaCheck } from './validatorUtil'
 
 export {
-    validatorCheck,
-    validatorSchemaCheck,
-    validatorUtil as valid
+  validatorCheck,
+  validatorSchemaCheck,
+  validatorUtil as valid
 }
-export default validatorUtil; 
+export default validatorUtil

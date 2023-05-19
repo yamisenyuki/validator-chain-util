@@ -2,7 +2,7 @@ import { get, isArray, isNil, isNull, isObject, isUndefined } from 'lodash'
 import validator from 'validator'
 import objectProcess from './objectProcess'
 
-type ValidAction = `_${keyof Omit<ValidatorWrapper, 'run'|'withMessage'|'result'|'optional'|'allowNull'|"setKey">}`
+type ValidAction = `_${keyof Omit<ValidatorWrapper, 'run'|'withMessage'|'result'|'optional'|'allowNull'|'setKey'>}`
 
 type ValidatorResultItem = {
   fun: string
@@ -12,7 +12,7 @@ type ValidatorResultItem = {
 export type ValidatorResult ={
   pass: boolean
   msg: string
-  data:ValidatorResultItem[]
+  data: ValidatorResultItem[]
 }
 
 export class ValidatorWrapper {
@@ -29,7 +29,7 @@ export class ValidatorWrapper {
     this._key = key
   }
 
-  public setKey(key?:string){
+  public setKey (key?: string) {
     this._key = key
   }
 
@@ -132,8 +132,8 @@ export class ValidatorWrapper {
   }
 
 
-  public contains (seed: string,options?: validator.ContainsOptions) {
-    this._chian.push({ fun: '_contains', options: {seed, ...options} })
+  public contains (seed: string, options?: validator.ContainsOptions) {
+    this._chian.push({ fun: '_contains', options: { seed, ...options } })
     return this
   }
 
@@ -762,22 +762,22 @@ export class ValidatorWrapper {
     return this
   }
 
-  public isArray(options?:validator.IsLengthOptions) {
-    this._chian.push({fun:'_isArray',options})
+  public isArray (options?: validator.IsLengthOptions) {
+    this._chian.push({ fun: '_isArray', options })
     return this
   }
 
-  private _isArray(options?:validator.IsLengthOptions) {
-    let result =true
-    if(!isArray(this._rawV)){
+  private _isArray (options?: validator.IsLengthOptions) {
+    let result = true
+    if (!isArray(this._rawV)) {
       return false
     }
-    if(!isNil(options)){
-      if(!isNil(options?.min)){
+    if (!isNil(options)) {
+      if (!isNil(options?.min)) {
         result = result && (this._rawV.length >= options?.min)
       }
 
-      if(!isNil(options?.max)){
+      if (!isNil(options?.max)) {
         result = result && (this._rawV.length <= options?.max)
       }
     }
@@ -873,18 +873,18 @@ export class ValidatorWrapper {
     return this
   }
 
-  public customer(fun:(value:string,raw:any)=>boolean){
+  public customer (fun: (value: string, raw: any)=> boolean) {
     this._chian.push({ fun: '_customer', options: fun })
     return this
   }
 
-  private _customer(fun:(value:string,raw:any)=>boolean){
-    return fun(this._v,this._rawV)
+  private _customer (fun: (value: string, raw: any)=> boolean) {
+    return fun(this._v, this._rawV)
   }
 
   run (obj: any): ValidatorResult {
     const rawV = isUndefined(this._key) ? [obj] : (this._key.indexOf('*') !== -1 ? objectProcess.objFind(obj, this._key) : [get(obj, this._key)])
-   
+
     for (const v of rawV) {
 
       if (isNil(v)) {
@@ -895,12 +895,12 @@ export class ValidatorWrapper {
       this._rawV = v
 
       if (isUndefined(this._rawV) && !this._isOptional) {
-        this._result.push({ pass: false,fun:"", msg: 'must value' })
+        this._result.push({ pass: false, fun: '', msg: 'must value' })
         continue
       }
 
       if (isNull(this._rawV) && !this._allowNull) {
-        this._result.push({ pass: false,fun:"", msg: 'must value' })
+        this._result.push({ pass: false, fun: '', msg: 'must value' })
         continue
       }
 
@@ -918,20 +918,20 @@ export class ValidatorWrapper {
 
           const t = this[item.fun](item.options)
           // only log false
-          if (!t) {this._result.push({ pass:t,fun:item.fun, msg: isNil(item.msg) ? item.fun : item.msg })}
+          if (!t) {this._result.push({ pass: t, fun: item.fun, msg: isNil(item.msg) ? item.fun : item.msg })}
 
         } catch (error) {
           console.error(error)
-          this._result.push({ pass:false,fun:item.fun, msg: isNil(item.msg) ? item.fun : item.msg })
+          this._result.push({ pass: false, fun: item.fun, msg: isNil(item.msg) ? item.fun : item.msg })
         }
       }
     }
     return this.result()
   }
 
-  private result ():ValidatorResult {
+  private result (): ValidatorResult {
     const pass = this._result.length === 0
-    return { pass, msg:pass ? '' : this._result[0].msg, data: this._result }
+    return { pass, msg: pass ? '' : this._result[0].msg, data: this._result }
   }
 
   bail () {
@@ -947,5 +947,5 @@ export class ValidatorWrapper {
   }
 }
 
-const validatorUtil= (key?:string):ValidatorWrapper =>new ValidatorWrapper(key)
+const validatorUtil = (key?: string): ValidatorWrapper => new ValidatorWrapper(key)
 export default validatorUtil
