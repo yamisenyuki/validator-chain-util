@@ -56,7 +56,12 @@ describe('validatorWrapper Sync', () => {
       .run(obj)).toEqual({ pass: false, msg: '_isArray', data: [
       { fun: '_isArray', msg: '_isArray', pass: false }
     ] })
-
+    expect(valid('testStr').isString()
+      .run(obj)).toEqual({ pass: true, msg: '', data: [] })
+    expect(valid('testStr').isString()
+      .run({ testStr: 123 })).toEqual({ pass: false, msg: '_isString', data: [
+      { fun: '_isString', msg: '_isString', pass: false }
+    ] })
   })
 
   test('number', () => {
@@ -122,9 +127,18 @@ describe('validatorWrapper Sync', () => {
       .run({ testObjArray: [{ a: 1 }, { a: 'test' }] })).toEqual({ pass: false, msg: '_isInt', data: [
       { fun: '_isInt', msg: '_isInt', pass: false }
     ] })
-    expect(valid('testObjArray').isArray({ min: 2, max: 2 })
-      .bail()
+    expect(valid('testObjArray').isArray()
       .run(obj)).toEqual({ pass: true, msg: '', data: [] })
+    expect(valid('testObjArray').isArray({ min: 1, max: 3 })
+      .run(obj)).toEqual({ pass: true, msg: '', data: [] })
+    expect(valid('testObjArray').isArray({ min: 1 })
+      .run(obj)).toEqual({ pass: true, msg: '', data: [] })
+    expect(valid('testObjArray').isArray({ max: 3 })
+      .run(obj)).toEqual({ pass: true, msg: '', data: [] })
+    expect(valid('testObjArray').isArray({ min: 5, max: 8 })
+      .run(obj)).toEqual({ pass: false, msg: '_isArray', data: [
+      { fun: '_isArray', msg: '_isArray', pass: false }
+    ] })
   })
 
   test('object', () => {

@@ -1,4 +1,4 @@
-import { get, isArray, isNil, isNull, isObject, isUndefined } from 'lodash'
+import { get, isArray, isNil, isNull, isObject, isString, isUndefined } from 'lodash'
 import validator from 'validator'
 import objectProcess from './objectProcess'
 
@@ -773,15 +773,24 @@ export class ValidatorWrapper {
       return false
     }
     if (!isNil(options)) {
-      if (!isNil(options?.min)) {
-        result = result && (this._rawV.length >= options?.min)
+      if (!isNil(options.min)) {
+        result = result && (this._rawV.length >= options.min)
       }
 
-      if (!isNil(options?.max)) {
-        result = result && (this._rawV.length <= options?.max)
+      if (!isNil(options.max)) {
+        result = result && (this._rawV.length <= options.max)
       }
     }
     return result
+  }
+
+  public isString () {
+    this._chian.push({ fun: '_isString' })
+    return this
+  }
+
+  private _isString () {
+    return isString(this._rawV)
   }
 
   private _isWhitelisted (chars: string|string[]) {

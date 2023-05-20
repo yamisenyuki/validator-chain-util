@@ -1,12 +1,15 @@
-## Overview
+# Overview
 [![npm version](https://img.shields.io/npm/v/validator-chain-util.svg)](https://www.npmjs.com/package/validator-chain-util)
 [![license](https://img.shields.io/github/license/yamisenyuki/validator-chain-util)](https://github.com/yamisenyuki/validator-chain-util/blob/master/LICENSE)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yamisenyuki/validator-chain-util/build.yml)
+[![Coverage Status](https://coveralls.io/repos/github/yamisenyuki/validator-chain-util/badge.svg?branch=master)](https://coveralls.io/github/yamisenyuki/validator-chain-util?branch=master)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yamisenyuki/validator-chain-util/test.yml?label=test-ci)
 
 validator-chain-util is a utility library for the [validator.js](https://github.com/validatorjs/validator.js) project.
 You can verify data through chain functions, or use schema to verify data.
 It supports wildcard attribute selectors, you can use wildcards to validate data inside arrays or objects.
 
-## Index
+# Index
 [Getting Started](#getting-started)
 - [Overview](#overview)
 - [Index](#index)
@@ -28,9 +31,9 @@ It supports wildcard attribute selectors, you can use wildcards to validate data
 - [Change Log](#change-log)
 - [Thanks](#thanks)
 
-## Getting Started
+# Getting Started
 
-### Installation
+## Installation
 ```bash
 # NPM 
 npm install validator-chain-util
@@ -40,21 +43,21 @@ yarn add validator-chain-util
 ```
 
 
-### Usage
-#### JavaScript
+## Usage
+### JavaScript
 ```javascript
 const { valid,validatorCheck} = require('validator-chain-util');  // only chain
 const { valid,validatorSchema,validatorCheck } = require('validator-chain-util'); // chain and schema
 ```
 
-#### TypeScript
+### TypeScript
 ```typescript
 import valid,{validatorCheck} from 'validator-chain-util'; // only chain
 import valid,{validatorSchema,validatorCheck} from 'validator-chain-util'; // chain and schema
 ```
 
-### Examples
-#### Test Object
+## Examples
+### Test Object
 ```typescript
 const testObj = {
   name: 'test',
@@ -73,7 +76,7 @@ const testObj = {
 }
 ```
 
-#### Use Chain Function
+### Use Chain Function
 ```typescript
 
 const emailCheck = valid("email").isEmail().run(testObj)
@@ -120,7 +123,7 @@ validatorCheck([emailCheck, nameCheck]) // false
 
 ```
 
-#### Use Schema
+### Use Schema
 ```typescript
 const schema = {
   name: valid().notEmpty().isLength({ min: 5 }),
@@ -141,8 +144,8 @@ const checkResult = validatorSchemaCheck(schema, testObj)
 validatorCheck(checkResult) // false
 ```
 
-### Advanced Usage
-#### Wildcard
+## Advanced Usage
+### Wildcard
 ```typescript
 valid("files.*.name")
   .notEmpty()
@@ -166,10 +169,17 @@ const schema = {
   "files.*.size": valid().isInt(),
 }
 
-validatorSchemaCheck(schema, testObj) // pass
+validatorSchemaCheck(schema, testObj)
+// [
+//   { pass: true, msg: '', data: [] },
+//   { pass: true, msg: '', data: [] },
+//   { pass: true, msg: '', data: [] }
+// ]
+validatorCheck(validatorSchemaCheck(schema, testObj)) // true
+
 ```
 
-#### Bail Function
+### Bail Function
 `bail()` will stop checking if the current check fails
 ```typescript
 valid("name")
@@ -201,7 +211,7 @@ valid("name")
 // }
 ```
 
-#### Optional / Allow Null / notEmpty
+### Optional / Allow Null / notEmpty
 `optional()` and `allowNull()` are different, `optional()` will skip the check if the field is not present, `allowNull()` will skip check the field if the field is present, but the value is null.
 `notEmpty()` will check the field is "".
 | optional() | allowNull() | notEmpty() | input value                                                                                                                                                                                        |
@@ -258,7 +268,7 @@ valid("email").notEmpty().isEmail().run({email:""})
 // }
 ```
 
-#### Custom Validator
+### Custom Validator
 ```typescript
 valid().customer((value:string,rawValue:any):boolean=>{
   if(value === 'test'){
@@ -271,7 +281,7 @@ valid().customer((value:string,rawValue:any):boolean=>{
 // rawValue is the input value to raw type
 ```
 
-#### Custom Error Message
+### Custom Error Message
 ```typescript
 valid("name")
 .isLength({min:5})
@@ -281,10 +291,10 @@ valid("name")
 .run(testObj)
 ```
 
-## Change Log
-view [Change Log](./CHANGELOG.md)
+# Change Log
+**View [Change Log](./CHANGELOG.md)**
 
-## Thanks
-[validator.js](https://github.com/validatorjs/validator.js)
-[lodash](https://github.com/lodash/lodash)
+# Thanks
+* [validator.js](https://github.com/validatorjs/validator.js)
+* [lodash](https://github.com/lodash/lodash)
 

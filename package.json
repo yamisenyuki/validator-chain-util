@@ -1,6 +1,6 @@
 {
   "name": "validator-chain-util",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "validator-chain-util is a wrapper that can call validator.js through a chain or schema, and supports wildcards. The usage is similar to express-validator.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

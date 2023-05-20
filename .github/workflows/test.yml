@@ -2,7 +2,7 @@ name: Build Package
 on:
   push:
     branches:
-      - master
+      - test
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,10 +26,6 @@ jobs:
           path-to-lcov: ./coverage/lcov.info
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-      - name: publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish
 
 
 
