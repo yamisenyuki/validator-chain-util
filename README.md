@@ -28,6 +28,7 @@ It supports wildcard attribute selectors, you can use wildcards to validate data
     - [Optional / Allow Null / notEmpty](#optional--allow-null--notempty)
     - [Custom Validator](#custom-validator)
     - [Custom Error Message](#custom-error-message)
+- [:warning: Reusing validation chains or schemas](#warning-reusing-validation-chains-or-schemas)
 - [Change Log](#change-log)
 - [Thanks](#thanks)
 
@@ -290,6 +291,36 @@ valid("name")
 .withMessage('name must contains test')
 .run(testObj)
 ```
+
+# :warning: Reusing validation chains or schemas
+Validation chains or schemas is a object,they are **mutable**.
+This means that calling methods on one will cause the original chain object to be updated.
+If you want to reuse a chain or schema, you can return it from a function.
+
+```typescript
+//use chain
+const chain=()=>valid("name").isLength({min:5})
+chain().run(testObj)
+
+//use schema
+const schema=()=>{
+  return{
+    name:valid().isLength({min:5}),
+    age:valid().isInt({min:18})
+  }
+}
+
+validatorSchemaCheck(schema(),testObj)
+```
+
+> ** Warning **
+> Storing chains or schema and then calling methods on them might cause bugs.
+> The second call will have a error.
+> ``` typescript
+> const chain=valid("name").isLength({min:5}).bail()
+> chain.run({name:"test"})  // pass is false
+> chain.run({name:"test1"}) // Should be true, but was false
+> ```
 
 # Change Log
 **View [Change Log](./CHANGELOG.md)**
