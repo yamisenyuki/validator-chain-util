@@ -4,6 +4,7 @@
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yamisenyuki/validator-chain-util/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/yamisenyuki/validator-chain-util/badge.svg?branch=master)](https://coveralls.io/github/yamisenyuki/validator-chain-util?branch=master)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/yamisenyuki/validator-chain-util/test.yml?label=test-ci)
+
 validator-chain-util is a utility library for the [validator.js](https://github.com/validatorjs/validator.js) project.
 You can verify data through chain functions, or use schema to verify data.
 It supports wildcard attribute selectors, you can use wildcards to validate data inside arrays or objects.
