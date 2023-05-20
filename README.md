@@ -313,9 +313,9 @@ const schema=()=>{
 validatorSchemaCheck(schema(),testObj)
 ```
 
-> ** Warning **
-> Storing chains or schema and then calling methods on them might cause bugs.
-> The second call will have a error.
+> **Warning** <br>
+> Storing chains or schema and then calling methods on them might cause bugs.<br>
+> This example will give wrong results on the second call.
 > ``` typescript
 > const chain=valid("name").isLength({min:5}).bail()
 > chain.run({name:"test"})  // pass is false
