@@ -293,9 +293,9 @@ valid("name")
 ```
 
 # :warning: Reusing validation chains or schemas
-Validation chains or schemas is a object,they are **mutable**.
-This means that calling methods on one will cause the original chain object to be updated.
-If you want to reuse a chain or schema, you can return it from a function.
+Validation chains or schemas is a object,they are **mutable**.  
+This means that calling methods on one will cause the original chain object to be updated.  
+If you want to reuse a chain or schema, you can return it from a function.  
 
 ```typescript
 //use chain
