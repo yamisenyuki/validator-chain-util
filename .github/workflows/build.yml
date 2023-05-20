@@ -14,7 +14,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          node-version: 18.x
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
       - name: Install Dependencies
         run: yarn install
       - name: Pre-publish
