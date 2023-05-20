@@ -5,3 +5,5 @@ tsconfig.json
 jest.config.js
 test.ts
 coverage
+.eslintignore
+.eslintrc.js

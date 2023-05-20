@@ -44,6 +44,6 @@
     "build": "tsc",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "pre-publish": "yarn test && yarn build && npm publish --dry-run"
+    "pre-publish": "yarn build && yarn test && npm publish --dry-run"
   }
 }
