@@ -7,3 +7,4 @@ test.ts
 coverage
 .eslintignore
 .eslintrc.js
+.github
