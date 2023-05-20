@@ -1,6 +1,14 @@
-## Change Log
+# Change Log
 
-#### 1.0.3
+
+### 1.0.4
+1. add `isString()` validator
+```typescript
+valid("name").isString().run({name:'test'})
+```
+
+----
+### 1.0.3
 1. change `contains()` param from `contains({ seed:string }& ContainsOptions )` to `contains(str: string, options?: ContainsOptions)`
 ```typescript
 // before
